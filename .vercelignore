@@ -1,0 +1,9 @@
+﻿raw-data
+model
+research/raw
+research/parts
+deck
+case
+*.py
+*.pkl
+
