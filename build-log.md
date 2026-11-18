@@ -26,3 +26,5 @@ submission/top10.md rewritten from v2.
 ## W3-W5 STATUS: PASS
 Routes built: /, /method, /pressure, /situation, /players, /players/[role]/[id] (447 pages), /compare, /auction. npm test 19/19, check:public PASS, lint:copy PASS, build 457 pages.
 ## R1b: lanes A,B,C1,C2,D,E done; F1,F2 running; G waits for official lists.
+
+## R1c: lane F batters done (R-Fb, 89 rows). Brook ban seasons CONFLICT: 6 sources say no auction before 2028, 3 say ban ended with 2026; ineligible.csv keeps him barred, report must disclose.

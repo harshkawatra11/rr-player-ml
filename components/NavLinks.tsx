@@ -20,6 +20,9 @@ export function NavLinks({ orientation }: { orientation: "rail" | "bar" }) {
             {n.label}
           </Link>
         ))}
+        <a href={COPY.researchPath} className="shrink-0 border border-white/40 px-3 py-1.5 text-sm font-semibold text-white">
+          Research PDF
+        </a>
       </nav>
     );
   }

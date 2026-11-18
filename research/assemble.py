@@ -10,7 +10,7 @@ secs = {}
 for p in sorted((HERE / "parts").glob("part-*.md")):
     t = p.read_text(encoding="utf-8").replace("\r", ""); assert not re.search(r"^# ", t, re.M), ("H1 in a part", p.name)
     for mm in re.finditer(r"^## (\d+|Appendix C)[.:] .*?(?=^## |\Z)", t, re.M | re.S): k = mm.group(1); assert k not in secs, ("duplicate section", k); secs[k] = mm.group(0).strip() + "\n\n"
-want = [str(i) for i in range(35)]; miss = [k for k in want + ["Appendix C"] if k not in secs]
+want = [str(i) for i in range(36)]; miss = [k for k in want + ["Appendix C"] if k not in secs]
 tb = lambda r: "%s, %s and %s" % (D["top_" + r][0][1], D["top_" + r][1][1], D["top_" + r][2][1])
 head = ("# Reliable Under Pressure: Rating Batters and Bowlers When the Match Is on the Line\n\n**In our model the most reliable batters under pressure are %s and the most reliable bowlers are %s; a player's extra under pressure does not repeat from one half of his matches to the other (%s for batters, %s for bowlers), so the rating blends each pressure record with the everyday record behind it and ranks on the level we are 80%% sure the player exceeds.**\n\n"
         "Team IdeaForge: Harsh Kawatra (Delhi Technological University, Team Leader)\n\nPrepared for: Rajasthan Royals and Unstop, SupeRR Selector Season 2, Round 1\n\n---\n\n") % (tb("bat"), tb("bowl"), D["sh"]["bat"]["r_lift"], D["sh"]["bowl"]["r_lift"])
@@ -28,7 +28,7 @@ low = full.lower(); pre33 = re.split(r"^## 33\.", body, flags=re.M)[0]; figs = s
 res = dict(words=len(full.split()), tables=len(re.findall(r"^\|[ :|-]+\|\s*$", full, re.M)), dashes=len(re.findall("[—–]", full)), exclamations=full.count("!") - full.count("!["), q_outside_qa=pre33.count("?"),
            banned=sorted({w for w in BAN if w in low}), missing_sections=miss, missing_S=missS, figures=len(figs), missing_figure_files=[f for f in figs if not (HERE / "figures" / (f + ".png")).exists()],
            answers=len(re.findall(r"^\*\*Answer\.\*\*", body, re.M)), h2_numbered=len(re.findall(r"^## \d+\.", body, re.M)), placeholders=len(re.findall(r"TODO|TBD|Lorem|\bxyz\b|PLACEHOLDER|\[citation|<\.\.\.>", full)),
-           not_x_but_y=len(re.findall(r"\bnot (?:just|only|merely)\b", low)), hash_ok=D["hash"] in full, top_names_ok=all(r[1] in full for r in D["top_bat"] + D["top_bowl"]))
+           not_x_but_y=len(re.findall(r"\bnot (?:just|only|merely)\b", low)), hash_ok=D["hash"] in full, headings_ok=all(re.search(r"^## %s\. .*%s" % (n, h), body, re.M) for n, h in (("2", "Pressure definition"), ("3", "Performance measurement"), ("4", "Fair comparisons"), ("5", "Evidence for your top 10"), ("6", "Evidence for your top 10"), ("7", "Reliability and limitations"))), top_names_ok=all(r[1] in full for r in D["top_bat"] + D["top_bowl"]))
 ok = (res["words"] >= MIN_WORDS and res["tables"] >= MIN_TABLES and res["dashes"] == 0 and res["exclamations"] == 0 and res["q_outside_qa"] == 0 and not res["banned"] and not miss and not missS and res["figures"] >= 18 and not res["missing_figure_files"]
-      and res["answers"] >= res["h2_numbered"] and res["placeholders"] == 0 and res["not_x_but_y"] <= 2 and res["hash_ok"] and res["top_names_ok"])
+      and res["answers"] >= res["h2_numbered"] and res["placeholders"] == 0 and res["not_x_but_y"] <= 2 and res["hash_ok"] and res["top_names_ok"] and res["headings_ok"])
 print(json.dumps(res, ensure_ascii=False, indent=1)); print("ASSEMBLY PASS" if ok else "ASSEMBLY FAIL"); sys.exit(0 if ok else 1)

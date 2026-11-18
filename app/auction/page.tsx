@@ -90,14 +90,14 @@ export default function AuctionPage() {
         </div>
       </Panel>
 
-      <Panel title="Target board" caption={COPY.auction.note}>
+      <Panel title="Target board" caption={`${COPY.auction.note} Statuses taken from franchise pages and the IPL are firmer than those from media lists; the research marks each source. Official league-wide lists were not complete on 17 Nov 2026.`}>
         {noAvail && (
           <div className="mb-4">
             <EmptyState>{COPY.auction.emptyAvailability}</EmptyState>
           </div>
         )}
         <div className="space-y-6">
-          {tierLabel.map(([title, k, sub]) => (
+          {tierLabel.filter(([, k]) => !noAvail || (b[k] as unknown[]).length > 0).map(([title, k, sub]) => (
             <div key={k}>
               <h3 className="text-[15px] font-bold text-rr-navy">{title}</h3>
               <p className="mb-2 text-xs text-rr-muted">{sub}</p>
