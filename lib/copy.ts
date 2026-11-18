@@ -11,7 +11,7 @@ export const COPY = {
   author: "Harsh Kawatra, Delhi Technological University",
   repoUrl: "https://github.com/harshkawatra11/rr-player-ml",
   researchPath: "/research.pdf",
-  dashUrl: "",
+  dashUrl: "https://rr-ml-harsh.vercel.app",
   nav: [
     { href: "/", label: "War Room", hint: "The two lists" },
     { href: "/pressure", label: "Pressure Lab", hint: "How pressure is defined" },
