@@ -51,3 +51,5 @@ deck/derived/
 research/*.html
 _tmp/
 
+.vercel
+.env*
