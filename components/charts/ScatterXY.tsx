@@ -51,7 +51,7 @@ export function ScatterXY({
               const d = active && payload?.[0]?.payload ? (payload[0].payload as Pt) : null;
               if (!d) return null;
               return (
-                <div className="rounded-md border border-rr-line bg-white px-3 py-2 text-xs shadow">
+                <div className="border border-rr-line bg-white px-3 py-2 text-xs shadow">
                   <p className="font-semibold text-rr-navy">{d.label}</p>
                   <p className="tnum text-rr-muted">
                     {xLabel}: {fmt(d.x)}

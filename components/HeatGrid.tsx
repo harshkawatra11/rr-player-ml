@@ -45,7 +45,7 @@ export function HeatGrid({
   };
   const out = new Set(outline.map(([r, c]) => `${r}-${c}`));
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={ariaLabel ?? "Heat grid"}>
+    <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" style={{ maxWidth: Math.round(W * 1.15) }} role="img" aria-label={ariaLabel ?? "Heat grid"}>
       {cols.map((c, j) => (
         <text key={c} x={labelWidth + cellWidth * j + cellWidth / 2} y={headH - 10} textAnchor="middle" fontSize={fontSize} fontWeight={600} fill={COLORS.navy}>
           {c}

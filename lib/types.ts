@@ -18,6 +18,14 @@ export interface Player {
   qualified: boolean;
   active: boolean;
   eligible: boolean;
+  barred: string;
+  rank_pre: number | null;
+  pm: number;
+  pos_share: number | null;
+  decisive: number;
+  costly: number;
+  worst: number | null;
+  best: number | null;
   hand: string | null;
   pos: number | null;
   bowl_type: string | null;
@@ -196,6 +204,15 @@ export interface Deck {
   firm: Record<Role, number>;
   swp: string;
   rr: (string | number)[][];
+  oot: Record<Role, { players: number; top_raw: string; top_floor: string; pool: string; corr_raw: string; corr_floor: string; lift: string }>;
+  gates: Record<string, Record<Role, string[]>>;
+  barred: Record<Role, [string, number, string, number][]>;
+  edge: { reduced_inferred: number[]; dls_chases_dropped: number[]; retired_out_rows: number; retired_out_charged: number; wide_stumpings: number; wide_stumpings_charged: number; matches_not_decided: number };
+  bias_max: string;
+  gate: string;
+  dl: { Z0: number; b: number; F: number[] };
+  half_life: Record<Role, number | null>;
+  hl_test: Record<string, Record<Role, { corr: number; top10: number; pool: number }>>;
 }
 
 export interface Meta {
@@ -255,4 +272,24 @@ export interface ShowcaseMatch {
   result: string;
   /** [innings, over, win probability of the batting side at the start of the over, mean PI, runs, wickets, batting side] */
   overs: [number, number, number | null, number | null, number, number, string | null][];
+}
+
+export interface LedgerRow {
+  franchise: string;
+  basis: string;
+  purse_cr: number;
+  retained: number;
+  overseas: number;
+  committed_cr: number;
+  purse_left_cr: number;
+  slots_left: number;
+  overseas_left: number;
+  needed_to_18: number;
+  max_bid_cr: number;
+}
+
+export interface Ledger {
+  rows: LedgerRow[];
+  royals: LedgerRow[];
+  note: string;
 }

@@ -35,3 +35,9 @@ export function getRanked(role: Role): Player[] {
 export function getTop10(role: Role): Player[] {
   return getRanked(role).slice(0, 10);
 }
+
+/** The franchise ledger exists only after the official retention lists are verified. Returns null until then. */
+export function getLedger(): import("./types").Ledger | null {
+  const f = path.join(DIR, "ledger.json");
+  return fs.existsSync(f) ? (JSON.parse(fs.readFileSync(f, "utf8")) as import("./types").Ledger) : null;
+}

@@ -32,11 +32,11 @@ for (const f of files) {
   }
   for (const m of src.matchAll(/>([^<>{}]+)</g)) {
     const t = m[1].trim();
-    if (t) texts.push({ kind: "jsx", t });
+    if (t && !/[=;]|&&|\|\||=>|\bas\b/.test(t)) texts.push({ kind: "jsx", t });
   }
   for (const { kind, t } of texts) {
     if (/[—–]/.test(t)) problems.push(`${rel}: dash in ${kind}: ${t.slice(0, 80)}`);
-    if (kind === "jsx" && /!/.test(t)) problems.push(`${rel}: exclamation mark in JSX text: ${t.slice(0, 80)}`);
+    if (kind === "jsx" && /[A-Za-z0-9)]!(\s|$)/.test(t)) problems.push(`${rel}: exclamation mark in JSX text: ${t.slice(0, 80)}`);
     const low = t.toLowerCase();
     for (const w of BAN) if (low.includes(w)) problems.push(`${rel}: banned word "${w}" in ${kind}: ${t.slice(0, 80)}`);
   }

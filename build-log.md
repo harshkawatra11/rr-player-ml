@@ -17,3 +17,12 @@ Both ball_by_ball CSVs hash 01e2b4379edfbab6, identical. Mail attachment could n
 
 ## A0 STATUS: PASS
 git repo initialised; PLAN.md updated with the 17 Nov audit; 3 AU files extracted; ineligible.csv written.
+
+## M4 STATUS: PASS
+v2 patch applied (44 replacements). CHECKS 15/15 HASH c34d772dd7, MODEL PASS, FIGURES DONE (18), VERIFY PASS.
+## M5 STATUS: PASS
+submission/top10.md rewritten from v2.
+
+## W3-W5 STATUS: PASS
+Routes built: /, /method, /pressure, /situation, /players, /players/[role]/[id] (447 pages), /compare, /auction. npm test 19/19, check:public PASS, lint:copy PASS, build 457 pages.
+## R1b: lanes A,B,C1,C2,D,E done; F1,F2 running; G waits for official lists.

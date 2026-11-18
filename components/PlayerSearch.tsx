@@ -41,10 +41,10 @@ export function PlayerSearch({
         onBlur={() => setTimeout(() => setOpen(false), 120)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="w-full rounded-lg border border-rr-line bg-white px-3 py-2 text-sm outline-none focus:border-rr-pink focus:ring-2 focus:ring-rr-pink/30"
+        className="w-full  border border-rr-line bg-white px-3 py-2 text-sm outline-none focus:border-rr-pink focus:ring-2 focus:ring-rr-pink/30"
       />
       {open && hits.length > 0 && (
-        <ul className="absolute z-20 mt-1 w-full overflow-hidden rounded-lg border border-rr-line bg-white shadow-lg" role="listbox">
+        <ul className="absolute z-20 mt-1 w-full overflow-hidden  border border-rr-line bg-white shadow-lg" role="listbox">
           {hits.map((p) => (
             <li key={`${p.role}-${p.id}`}>
               <button

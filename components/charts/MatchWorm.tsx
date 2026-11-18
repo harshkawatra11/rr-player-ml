@@ -23,7 +23,7 @@ export function MatchWorm({ match, height = 320 }: { match: ShowcaseMatch; heigh
               if (!active || !payload?.length) return null;
               const d = payload[0].payload as { wp: number | null; pi: number | null; runs: number; wk: number };
               return (
-                <div className="rounded-md border border-rr-line bg-white px-3 py-2 text-xs shadow">
+                <div className="border border-rr-line bg-white px-3 py-2 text-xs shadow">
                   <p className="font-semibold text-rr-navy">Over {label}</p>
                   <p className="tnum text-rr-muted">Win probability at the start: {d.wp ?? "n/a"}%</p>
                   <p className="tnum text-rr-muted">Mean Pressure Index: {d.pi ?? "n/a"}</p>
@@ -32,8 +32,8 @@ export function MatchWorm({ match, height = 320 }: { match: ShowcaseMatch; heigh
               );
             }}
           />
-          <Bar yAxisId="pi" dataKey="pi" fill={COLORS.pink} fillOpacity={0.3} radius={[3, 3, 0, 0]} isAnimationActive={false} />
-          <Line yAxisId="wp" type="monotone" dataKey="wp" stroke={COLORS.navy} strokeWidth={2.5} dot={{ r: 3, fill: COLORS.navy }} isAnimationActive={false} />
+          <Bar yAxisId="pi" dataKey="pi" fill={COLORS.pink} fillOpacity={0.3} isAnimationActive={false} />
+          <Line yAxisId="wp" type="linear" dataKey="wp" stroke={COLORS.navy} strokeWidth={2.5} dot={{ r: 3, fill: COLORS.navy }} isAnimationActive={false} />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

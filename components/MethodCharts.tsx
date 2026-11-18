@@ -75,8 +75,8 @@ export function Funnel({ steps, values, color }: { steps: string[]; values: numb
       {steps.map((s, i) => (
         <li key={s} className="grid grid-cols-[170px_1fr_44px] items-center gap-2 text-sm">
           <span className="text-rr-navy">{s}</span>
-          <span className="h-4 rounded bg-rr-panel">
-            <span className="block h-4 rounded" style={{ width: `${(100 * values[i]) / top}%`, background: color }} />
+          <span className="h-4  bg-rr-panel">
+            <span className="block h-4 " style={{ width: `${(100 * values[i]) / top}%`, background: color }} />
           </span>
           <span className="tnum text-right font-bold text-rr-navy">{values[i]}</span>
         </li>

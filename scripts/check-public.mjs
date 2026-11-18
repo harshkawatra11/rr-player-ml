@@ -4,9 +4,11 @@ import path from "node:path";
 
 const dir = path.join(process.cwd(), "public", "data");
 const want = ["batters.json", "bowlers.json", "grid.json", "meta.json", "showcase.json", "teams.json"];
-const have = fs.readdirSync(dir).sort();
+const optional = ["ledger.json"];
+const have = fs.readdirSync(dir).filter((f) => !optional.includes(f) || true).sort();
+const core = have.filter((f) => !optional.includes(f));
 const problems = [];
-if (JSON.stringify(have) !== JSON.stringify(want)) problems.push(`expected ${want.join(", ")} but found ${have.join(", ")}`);
+if (JSON.stringify(core) !== JSON.stringify(want)) problems.push(`expected ${want.join(", ")} but found ${have.join(", ")}`);
 let total = 0;
 for (const f of have) {
   const text = fs.readFileSync(path.join(dir, f), "utf8");

@@ -38,7 +38,7 @@ export const COPY = {
   },
   explorer: {
     title: "Explorer",
-    lede: "Every player with at least 40 pressure balls and 40 ordinary balls. Only eligible players with 120 of each are ranked.",
+    lede: "Every player with at least 40 pressure balls and 40 ordinary balls. Only eligible players with 110 of each are ranked.",
     belowGate: "Below the sample gate: shown for context, not ranked.",
   },
   auction: {
@@ -62,5 +62,7 @@ export const COPY = {
     "Pressure lift does not repeat in this data. That is a finding about five seasons and a few hundred pressure balls a player.",
     "No World Cup matches are in the file; T20I coverage is bilateral series, tri-series and Asia Cup events.",
     "Nationality of IPL-only players is not in the data and comes from public sources.",
+    "Batting pressure value barely predicts itself on later seasons; the batting list describes the recent record.",
+    "The sample gate moved from 120 to 110 balls during the audit; the 120 list is on the Method page.",
   ],
 } as const;

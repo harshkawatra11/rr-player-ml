@@ -16,57 +16,62 @@ export default function WarRoom() {
     <div className="space-y-6">
       <PageHeader kicker={COPY.home.kicker} title={COPY.home.title} lede={COPY.home.lede} />
 
-      <section className="rounded-xl bg-rr-navy p-5 text-white sm:p-6">
-        <p className="font-display text-xs font-bold uppercase tracking-[0.14em] text-rr-pink">The verdict, in our model</p>
-        <p className="mt-2 font-display text-xl font-bold leading-snug sm:text-2xl">
+      <section className="bg-rr-navy p-5 text-white sm:p-6">
+        <p className="text-sm font-bold text-rr-pink">The verdict, in our model</p>
+        <p className="mt-2 text-xl font-bold leading-snug sm:text-2xl">
           {three(d.top_bat)} lead the batters; {three(d.top_bowl)} lead the bowlers.
         </p>
         <p className="mt-3 max-w-3xl text-sm text-white/75">
-          A player&apos;s extra under pressure does not repeat from one half of his matches to the other ({d.sh.bat.r_lift} for batters, {d.sh.bowl.r_lift} for bowlers), so each rank blends the pressure record with the everyday record behind it and
-          sorts on the level we are 80% sure the player exceeds.
+          A player&apos;s extra under pressure barely repeats from one half of his matches to the other ({d.sh.bat.r_lift} for batters, {d.sh.bowl.r_lift} for bowlers), and for bowlers the rating beats raw pressure numbers on later seasons ({d.oot.bowl.top_floor} against {d.oot.bowl.top_raw}).
+          Each rank blends the pressure record with the everyday record behind it, weights recent seasons more, and sorts on the level we are 80% sure the player exceeds.
         </p>
         <div className="mt-4 flex flex-wrap gap-2 text-sm">
-          <Link href="/method/" className="rounded-full bg-rr-pink px-4 py-1.5 font-semibold text-white">
+          <Link href="/method/" className="bg-rr-pink px-4 py-1.5 font-semibold text-white">
             How it works
           </Link>
-          <Link href="/auction/" className="rounded-full border border-white/40 px-4 py-1.5 font-semibold text-white">
+          <Link href="/auction/" className="border border-white/40 px-4 py-1.5 font-semibold text-white">
             Royals board
           </Link>
-          <a href={COPY.researchPath} className="rounded-full border border-white/40 px-4 py-1.5 font-semibold text-white">
+          <a href={COPY.researchPath} className="border border-white/40 px-4 py-1.5 font-semibold text-white">
             Research PDF
           </a>
         </div>
       </section>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-px border border-rr-line bg-rr-line lg:grid-cols-4">
         <KpiTile label="Balls in the file" value={d.n_balls} note={`${d.n_matches} matches, IPL 2022 to 2026 and T20I`} />
         <KpiTile label="Pressure balls" value={d.n_pressure} tone="pink" note={`One live ball in four, of ${d.n_live}`} />
         <KpiTile label="Chase AUC, out of fold" value={d.auc2} tone="blue" note={`Log loss ${d.ll2}; boosted benchmark AUC ${d.auc2_gbm}`} />
-        <KpiTile label="Lift repeatability" value={`${d.sh.bat.r_lift} | ${d.sh.bowl.r_lift}`} tone="pink" note="Batters | bowlers, odd against even matches" />
+        <KpiTile label="Bowlers, later seasons" value={d.oot.bowl.top_floor} tone="pink" note={`Top 10 by our floor, 2025 to 2026; raw numbers ${d.oot.bowl.top_raw}, pool ${d.oot.bowl.pool}`} />
       </div>
 
-      <Panel title={COPY.home.findingsTitle}>
-        <ol className="grid gap-4 md:grid-cols-3">
-          <li className="rounded-lg bg-rr-panel p-4">
-            <p className="font-display text-3xl font-extrabold text-rr-pink">{d.swing_ratio}x</p>
-            <p className="mt-1 text-sm text-rr-navy">
-              An Extreme-band ball moves win probability {band[3] ? (band[3].swing * 100).toFixed(2) : ""} points on average against {band[0] ? (band[0].swing * 100).toFixed(2) : ""} for a routine ball, and wickets fall on {d.band_wkt[3]} of
-              its balls against {d.band_wkt[0]}.
-            </p>
-          </li>
-          <li className="rounded-lg bg-rr-panel p-4">
-            <p className="font-display text-3xl font-extrabold text-rr-navy">{d.share["2|DEATH"]}</p>
-            <p className="mt-1 text-sm text-rr-navy">
-              of chase death-over balls are pressure balls, against {d.share["1|MID"]} of first-innings middle-over balls and {d.share_ko} of knockout balls against {d.share_league} in league matches.
-            </p>
-          </li>
-          <li className="rounded-lg bg-rr-panel p-4">
-            <p className="font-display text-3xl font-extrabold text-rr-series">{d.firm.bat} and {d.firm.bowl}</p>
-            <p className="mt-1 text-sm text-rr-navy">
-              batters and bowlers are firm names. {COPY.home.firmNote} Ranks 6 to 10 are softer in both lists.
-            </p>
-          </li>
-        </ol>
+      <Panel title={COPY.home.findingsTitle} source={`Model hash ${d.hash}; ${d.n_balls} deliveries, IPL and T20I, 2022 to 2026`}>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-left text-xs text-rr-muted">
+              <th className="w-28 py-2 pr-4 font-semibold">Figure</th>
+              <th className="py-2 pr-4 font-semibold">Finding</th>
+              <th className="hidden py-2 font-semibold md:table-cell">Where to see it</th>
+            </tr>
+          </thead>
+          <tbody className="align-top">
+            <tr className="border-t border-rr-line">
+              <td className="tnum py-3 pr-4 text-2xl font-bold text-rr-pink-deep">{d.swing_ratio}x</td>
+              <td className="py-3 pr-4 text-rr-navy">An Extreme-band ball moves win probability {band[3] ? (band[3].swing * 100).toFixed(2) : ""} points on average against {band[0] ? (band[0].swing * 100).toFixed(2) : ""} for a routine ball, and wickets fall on {d.band_wkt[3]} of its balls against {d.band_wkt[0]}.</td>
+              <td className="hidden py-3 text-rr-muted md:table-cell"><Link href="/pressure/" className="underline">Pressure Lab</Link></td>
+            </tr>
+            <tr className="border-t border-rr-line">
+              <td className="tnum py-3 pr-4 text-2xl font-bold text-rr-navy">{d.share["2|DEATH"]}</td>
+              <td className="py-3 pr-4 text-rr-navy">of chase death-over balls are pressure balls, against {d.share["1|MID"]} of first-innings middle-over balls, and {d.share_ko} of knockout balls against {d.share_league} in league matches.</td>
+              <td className="hidden py-3 text-rr-muted md:table-cell"><Link href="/pressure/" className="underline">Pressure Lab</Link></td>
+            </tr>
+            <tr className="border-t border-rr-line">
+              <td className="tnum py-3 pr-4 text-2xl font-bold text-rr-blue">{d.firm.bat} and {d.firm.bowl}</td>
+              <td className="py-3 pr-4 text-rr-navy">batters and bowlers are firm names. {COPY.home.firmNote} Lower ranks are softer in both lists.</td>
+              <td className="hidden py-3 text-rr-muted md:table-cell"><Link href="/method/" className="underline">Method</Link></td>
+            </tr>
+          </tbody>
+        </table>
       </Panel>
 
       <LeaderTable players={bat} role="bat" title="Top 10 batters under pressure" />
